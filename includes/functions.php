@@ -6,7 +6,7 @@
 		global $connection;
 
 		if(!$result_set){
-			die('Database query failed!'.mysqli_error($connection));
+			die("Database query failed!".mysqli_error($connection));
 		}
 	}
 

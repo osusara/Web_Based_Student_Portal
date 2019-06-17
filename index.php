@@ -6,19 +6,19 @@
 	// check for submission
 	if(isset($_POST['student-submit'])){
 
-		$errors1 = array();
+		$errors = array();
 
 		// check if email and password entered
 		if(!isset($_POST['student-email']) || strlen(trim($_POST['student-email'])) < 1){
-			$errors1[] = 'Email cannot be empty';
+			$errors[] = 'Email can not be empty';
 		}
 
 		if(!isset($_POST['student-password']) || strlen(trim($_POST['student-password'])) < 1){
-			$errors1[] = 'Password cannot be empty';
+			$errors[] = 'Password can not be empty';
 		}
 
 		// check if there are no any error in the form
-		if(empty($errors1)){
+		if(empty($errors)){
 
 			// sanitize and save values to variables
 			$email = mysqli_real_escape_string($connection, $_POST['student-email']);
@@ -51,7 +51,7 @@
 			}else{
 
 				// email/password incorrect
-				$errors1[] = 'Email or Password is incorrect';
+				$errors[] = 'Email or Password is incorrect';
 			}
 		}
 	}
@@ -165,7 +165,7 @@
  						   	<div class="form-group">
  						 		<?php
  				  					// Display errors
- 					       			if(isset($errors1) && !empty($errors1)){
+ 					       			if(isset($errors) && !empty($errors1)){
  						   				echo '<div class="alert alert-danger" role="alert">';
  				       					echo '<p class="error">'.$errors1[0].'</p>';
  				       					echo '</div';
