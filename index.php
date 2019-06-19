@@ -154,7 +154,7 @@
 				<div class="card card-signin my-5">
 					<div class="card-body">
 						<h3 class="card-title text-center">Student Login</h3>
-						<form>
+						<form action="index.php" method="post">
 							<div class="form-group">
 					    		<input type="email" class="form-control" id="" aria-describedby="emailHelp" name="student-email" placeholder="Enter Email">
 					    	</div>
@@ -167,7 +167,7 @@
  				  					// Display errors
  					       			if(isset($errors) && !empty($errors1)){
  						   				echo '<div class="alert alert-danger" role="alert">';
- 				       					echo '<p class="error">'.$errors1[0].'</p>';
+ 				       					echo '<p class="error">'.$errors[0].'</p>';
  				       					echo '</div';
  			    					}
    					     		?>
@@ -182,7 +182,7 @@
 				<div class="card card-signin my-5">
 					<div class="card-body">
 						<h3 class="card-title text-center">Teacher Login</h3>
-						<form>
+						<form action="index.php" method="post">
 							<div class="form-group">
 					    		<input type="email" class="form-control" id="" aria-describedby="emailHelp" name="teacher-email" placeholder="Enter Email">
 					    	</div>
