@@ -4,16 +4,16 @@
 <?php 
 
 	// check for submission
-	if(isset($_POST['submit'])){
+	if(isset($_POST['teacher-submit'])){
 
 		$errors = array();
 
 		// check if email and password entered
-		if(!isset($_POST['email']) || strlen(trim($_POST['email'])) < 1){
+		if(!isset($_POST['teacher-email']) || strlen(trim($_POST['teacher-email'])) < 1){
 			$errors[] = 'Email cannot be empty';
 		}
 
-		if(!isset($_POST['password']) || strlen(trim($_POST['password'])) < 1){
+		if(!isset($_POST['teacher-password']) || strlen(trim($_POST['teacher-password'])) < 1){
 			$errors[] = 'Password cannot be empty';
 		}
 
@@ -21,12 +21,12 @@
 		if(empty($errors)){
 
 			// sanitize and save values to variables
-			$email = mysqli_real_escape_string($connection, $_POST['email']);
-			$password = mysqli_real_escape_string($connection, $_POST['password']);
+			$email = mysqli_real_escape_string($connection, $_POST['teacher-email']);
+			$password = mysqli_real_escape_string($connection, $_POST['teacher-password']);
 			$hashed_password = sha1($password); // encrypt the password
 
 			// database query
-			$query = "SELECT * FROM admin WHERE email='{$email}' AND password='{$hashed_password}' LIMIT 1";
+			$query = "SELECT * FROM teacher WHERE email='{$email}' AND password='{$hashed_password}' LIMIT 1";
 			$result = mysqli_query($connection, $query);
 
 			// call the function to verify the qurey
@@ -37,17 +37,17 @@
 
 				// valid teacher found
 				$teacher = mysqli_fetch_assoc($result);
-				$_SESSION['admin_id'] = $teacher['admin_id'];
-				$_SESSION['admin_name'] = $teacher['name'];
+				$_SESSION['teacher_id'] = $teacher['teacher_id'];
+				$_SESSION['teacher_name'] = $teacher['name'];
 
 				// update last login
-				$query = "UPDATE admin SET last_login = NOW() WHERE admin_id = {$_SESSION['teacher_id']} LIMIT 1";
+				$query = "UPDATE teacher SET last_login = NOW() WHERE teacher_id = {$_SESSION['teacher_id']} LIMIT 1";
 				$result = mysqli_query($connection, $query);
 
 				verify_query($result);
 
 				// redirect to teacher's home
-				header('Location: admin-dashboard.php');
+				header('Location: teacher-dashboard.php');
 			}else{
 
 				// email/password incorrect
@@ -86,7 +86,7 @@
             	<div class="collapse navbar-collapse" id="navbar-responsive">
                 	<ul class="navbar-nav ml-auto">
                     	<li class="nav-item"><a class="nav-link btn" href="index.php">Login as a Student</a></li>
-                    	<li class="nav-item"><a class="nav-link btn" href="teacher-login.php">Login as a Teacher</a></li>
+                    	<li class="nav-item"><a class="nav-link btn" href="admin-login.php">Login as an Admin</a></li>
                 	</ul>
             	</div>
         	</div>
@@ -98,13 +98,13 @@
 			<div class=" col-sm-12 col-md-4 mx-auto">
 				<div class="card card-signin my-5">
 					<div class="card-body">
-						<h3 class="card-title text-center">Admin Login</h3>
-						<form action="admin-login.php" method="post">
+						<h3 class="card-title text-center">Teacher Login</h3>
+						<form action="teacher-login.php" method="post">
 							<div class="form-group">
-					    		<input type="email" class="form-control" id="" aria-describedby="emailHelp" name="email" placeholder="Enter Email">
+					    		<input type="email" class="form-control" id="" aria-describedby="emailHelp" name="teacher-email" placeholder="Enter Email">
 					    	</div>
 					    	<div class="form-group">
-								<input type="password" id="" name="password" class="form-control" aria-describedby="passwordHelpBlock"  placeholder="Enter Password">
+								<input type="password" id="" name="teacher-password" class="form-control" aria-describedby="passwordHelpBlock"  placeholder="Enter Password">
 					    	</div>
  						   	
  						   	<div class="form-group">
@@ -117,7 +117,7 @@
  			    					}
    					     		?>
         					</div>
-        					<button type="submit" class="btn btn-primary btn-block text-uppercase" name="submit">Login</button>
+        					<button type="submit" class="btn btn-primary btn-block text-uppercase" name="teacher-submit">Login</button>
 						</form>
 					</div>
 				</div>

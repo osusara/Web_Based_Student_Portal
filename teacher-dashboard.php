@@ -5,7 +5,7 @@
 <?php
 
 	// Check if a user logged in
-    if(!isset($_SESSION['user_id'])){
+    if(!isset($_SESSION['teacher_id'])){
         header('Location: index.php');
     }
 

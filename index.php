@@ -56,60 +56,6 @@
 		}
 	}
 
-
-	// check for submission
-	if(isset($_POST['teacher-submit'])){
-
-		$errors = array();
-
-		// check if email and password entered
-		if(!isset($_POST['teacher-email']) || strlen(trim($_POST['teacher-email'])) < 1){
-			$errors[] = 'Email cannot be empty';
-		}
-
-		if(!isset($_POST['teacher-password']) || strlen(trim($_POST['teacher-password'])) < 1){
-			$errors[] = 'Password cannot be empty';
-		}
-
-		// check if there are any error in the form
-		if(empty($errors)){
-
-			// sanitize and save values to variables
-			$email = mysqli_real_escape_string($connection, $_POST['teacher-email']);
-			$password = mysqli_real_escape_string($connection, $_POST['teacher-password']);
-			$hashed_password = sha1($password); // encrypt the password
-
-			// database query
-			$query = "SELECT * FROM teacher WHERE email='{$email}' AND password='{$hashed_password}' LIMIT 1";
-			$result = mysqli_query($connection, $query);
-
-			// call the function to verify the qurey
-			verify_query($result);
-
-			// when query is success
-			if(mysqli_num_rows($result) == 1){
-
-				// valid teacher found
-				$teacher = mysqli_fetch_assoc($result);
-				$_SESSION['teacher_id'] = $teacher['teacher_id'];
-				$_SESSION['teacher_name'] = $teacher['name'];
-
-				// update last login
-				$query = "UPDATE teacher SET last_login = NOW() WHERE student_id = {$_SESSION['teacher_id']} LIMIT 1";
-				$result = mysqli_query($connection, $query);
-
-				verify_query($result);
-
-				// redirect to teacher's home
-				header('Location: teacher-dashboard.php');
-			}else{
-
-				// email/password incorrect
-				$errors[] = 'Email or Password is incorrect';
-			}
-		}
-	}
-
 ?>
 
 <!DOCTYPE html>
@@ -140,7 +86,8 @@
 
             	<div class="collapse navbar-collapse" id="navbar-responsive">
                 	<ul class="navbar-nav ml-auto">
-                    	<li class="nav-item"><a class="nav-link" href="admin-login.php">Login as an Admin</a></li>
+                    	<li class="nav-item"><a class="nav-link btn" href="teacher-login.php">Login as a Teacher</a></li>
+                    	<li class="nav-item"><a class="nav-link btn" href="admin-login.php">Login as an Admin</a></li>
                 	</ul>
             	</div>
         	</div>
@@ -165,7 +112,7 @@
  						   	<div class="form-group">
  						 		<?php
  				  					// Display errors
- 					       			if(isset($errors) && !empty($errors1)){
+ 					       			if(isset($errors) && !empty($errors)){
  						   				echo '<div class="alert alert-danger" role="alert">';
  				       					echo '<p class="error">'.$errors[0].'</p>';
  				       					echo '</div';
@@ -177,34 +124,6 @@
 					</div>
 				</div>
 			</div>
-
-			<div class=" col-sm-12 col-md-4 mx-auto">
-				<div class="card card-signin my-5">
-					<div class="card-body">
-						<h3 class="card-title text-center">Teacher Login</h3>
-						<form action="index.php" method="post">
-							<div class="form-group">
-					    		<input type="email" class="form-control" id="" aria-describedby="emailHelp" name="teacher-email" placeholder="Enter Email">
-					    	</div>
-					    	<div class="form-group">
-								<input type="password" id="" name="teacher-password" class="form-control" aria-describedby="passwordHelpBlock"  placeholder="Enter Password">
-					    	</div>
- 						   	
- 						   	<div class="form-group">
- 						 		<?php
- 				  					// Display errors
- 					       			if(isset($errors) && !empty($errors)){
- 						   				echo '<div class="alert alert-danger" role="alert">';
- 				       					echo '<p class="error">'.$errors[0].'</p>';
- 				       					echo '</div';
- 			    					}
-   					     		?>
-        					</div>
-        					<button type="submit" class="btn btn-primary btn-block text-uppercase" name="teacher-submit">Login</button>
-						</form>
-					</div>
-				</div>
-			</div>
 		</div>
 	</div>
 	
@@ -212,5 +131,3 @@
 </html>
 
 <?php mysqli_close($connection) ?>
-
-	
