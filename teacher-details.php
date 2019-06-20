@@ -70,7 +70,7 @@
     </header>
 
     <main>
-        <div class="container padding py-4">
+        <div class="container-fluid padding py-4">
             <div class="row">
                 <div class="col-md-10 col-sm-12 mx-auto">
                     <h5>teachers Details</h5>
@@ -91,39 +91,6 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
-        </div>
-
-        <div class="container-fluid padding text-center">
-            <div class="row">
-
-                <div class="col-sm-12 col-md-4 mx-auto">
-                    <div class="card card-signin my-5">
-                        <div class="card-body">
-                            <p class="card-title text-center">Click here if you are a teacher</p>
-                            <a class="btn btn-primary btn-block text-uppercase" href="teacher-login.php">teacher Details</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-12 col-md-4 mx-auto">
-                    <div class="card card-signin my-5">
-                        <div class="card-body">
-                            <p class="card-title text-center">Click here if you are a teacher</p>
-                            <a class="btn btn-primary btn-block text-uppercase" href="teacher-login.php">Login as a Teacher</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-12 col-md-4 mx-auto">
-                    <div class="card card-signin my-5">
-                        <div class="card-body">
-                            <p class="card-title text-center">Click here if you are a teacher</p>
-                            <a class="btn btn-primary btn-block text-uppercase" href="teacher-login.php">Login as a Teacher</a>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
 
