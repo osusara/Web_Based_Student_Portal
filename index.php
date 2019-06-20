@@ -12,9 +12,17 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+
 	<title>Welcome Page</title>
 </head>
 <body>
+    <header>
+        <div class="container-fluid text-center bg-dark py-1">
+            <h1 class="text-light">STUDENT PORTAL</h1>
+        </div>
+    </header>
+
 	<div class="container-fluid padding text-center">
 		<div class="row">
 
