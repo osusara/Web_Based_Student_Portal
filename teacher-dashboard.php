@@ -66,9 +66,10 @@
 	</header>
 
 	<main>
-		<div class="container padding">
+		<div class="container padding py-4">
 			<div class="row">
 				<div class="col-md-10 col-sm-12 mx-auto">
+                    <h5>Students Details</h5>
 					<table class="table">
 						<thead class="thead-dark">
 							<tr>
@@ -89,6 +90,16 @@
 			</div>
 		</div>
 	</main>
+
+    <footer class="footer">
+        <div class="container-fluid padding bg-dark text-light">
+            <div class="row text-center">
+                <div class="col-12 pt-3">
+                    <p>&copy; 2019 Student Portal</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
 

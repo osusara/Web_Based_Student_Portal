@@ -52,8 +52,6 @@
             $password = mysqli_real_escape_string($connection, $_POST['password']); // Sanitizing password
             $hashed_password = sha1($password);
 
-            $hashed_password = sha1($password);
-
             $query = "INSERT INTO teacher
                      (email, password, name, phone, address, last_login, is_deleted) VALUES
                      ('{$email}', '{$hashed_password}', '{$name}', '{$phone}', '{$address}', NOW(), 0)";
@@ -97,7 +95,8 @@
 
             	<div class="collapse navbar-collapse" id="navbar-responsive">
                 	<ul class="navbar-nav ml-auto">
-                    	<li class="nav-item"><a class="nav-link" href="student-logout.php">Log Out</a></li>
+                		<li class="nav-item"><a class="nav-link" href="admin-dashboard.php">Back</a></li>
+                    	<li class="nav-item"><a class="btn btn-secondary btn-block" href="admin-logout.php">Log Out</a></li>
                 	</ul>
             	</div>
         	</div>
@@ -155,5 +154,17 @@
 			</div>
 		</div>
 	</main>
+
+	<footer class="footer">
+        <div class="container-fluid padding bg-dark text-light">
+            <div class="row text-center">
+                <div class="col-12 pt-3">
+                    <p>&copy; 2019 Student Portal</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
+
+<?php mysqli_close($connection) ?>

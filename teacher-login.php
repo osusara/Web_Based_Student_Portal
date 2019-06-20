@@ -78,15 +78,14 @@
 	<header>
 		<nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
 			<div class="container-fluid">
-            	<a class="navbar-brand" href="index.html">STUDENT PORTAL</a>
+            	<a class="navbar-brand" href="index.php">STUDENT PORTAL</a>
             	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-responsive" aria-controls="navbar-responsive"aria-expanded="false" aria-label="Toggle navigation">
                 	<span class="navbar-toggler-icon"></span>
             	</button>
 
             	<div class="collapse navbar-collapse" id="navbar-responsive">
                 	<ul class="navbar-nav ml-auto">
-                    	<li class="nav-item"><a class="nav-link btn" href="index.php">Login as a Student</a></li>
-                    	<li class="nav-item"><a class="nav-link btn" href="admin-login.php">Login as an Admin</a></li>
+                    	<li class="nav-item"><a class="nav-link btn" href="index.php">Back</a></li>
                 	</ul>
             	</div>
         	</div>
@@ -124,6 +123,16 @@
 			</div>
 		</div>
 	</div>
+
+	<footer class="footer">
+        <div class="container-fluid padding bg-dark text-light">
+            <div class="row text-center">
+                <div class="col-12 pt-3">
+                    <p>&copy; 2019 Student Portal</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 	
 </body>
 </html>
