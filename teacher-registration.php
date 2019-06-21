@@ -14,6 +14,8 @@
 	$address = '';
 	$phone = '';
 	$email = '';
+	$password = '';
+	$password_confirm = '';
 
 	// check if the form is submitted
 	if(isset($_POST['submit'])){
@@ -21,6 +23,8 @@
 		$address = $_POST['address'];
 		$phone = $_POST['phone'];
 		$email = $_POST['email'];
+		$password = $_POST['password'];
+		$password_confirm = $_POST['password_confirm'];
 
 		// checking required fields
 		$req_fields = array('full_name', 'address', 'email', 'phone', 'password', 'password_confirm');
@@ -43,6 +47,11 @@
     	    }
     	}
 
+    	// Cheking the password confirmation
+    	if($password != $password_confirm){
+    		$errors[] = "Password is not match with the confirmation";
+    	}
+
     	if(empty($errors)){
             // If no error record adds to to the table
             $name = mysqli_real_escape_string($connection, $_POST['full_name']); // Sanitizing full_name
@@ -59,7 +68,7 @@
             $result = mysqli_query($connection, $query);
 
             if($result){
-                header('Location: admin-dashboard.php?teacher_add=true');
+                header('Location: teacher-registration.php?teacher_add=true');
             }else{
                 $errors[] = 'Failed to add the new record';
             }
@@ -81,6 +90,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
 
 	<title>Teacher Registration</title>
 </head>

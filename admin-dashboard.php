@@ -23,6 +23,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+
 	<title>Admin Dashboard</title>
 </head>
 <body>
@@ -50,8 +52,9 @@
         <div class="container-fluid padding text-center">
             <div class="row">
 
-                <div class="col-sm-12 col-md-4 mx-auto">
+                <div class="col-sm-12 col-md-3 mx-auto">
                     <div class="card card-signin my-5">
+                        <img src="assets/student.jpg" class="card-img-top" alt="Student Image">
                         <div class="card-body">
                             <a class="btn btn-primary btn-block text-uppercase" href="student-details.php">Students Manager</a>
                             <a class="btn btn-secondary btn-block text-uppercase" href="student-registration.php">Add Student</a>
@@ -59,8 +62,9 @@
                     </div>
                 </div>
 
-                <div class="col-sm-12 col-md-4 mx-auto">
+                <div class="col-sm-12 col-md-3 mx-auto">
                     <div class="card card-signin my-5">
+                        <img src="assets/teacher.jpg" class="card-img-top" alt="Teacher Image">
                         <div class="card-body">
                             <a class="btn btn-primary btn-block text-uppercase" href="teacher-details.php">Teachers Manager</a>
                             <a class="btn btn-secondary btn-block text-uppercase" href="teacher-registration.php">Add Teacher</a>
@@ -68,8 +72,9 @@
                     </div>
                 </div>
 
-                <div class="col-sm-12 col-md-4 mx-auto">
+                <div class="col-sm-12 col-md-3 mx-auto">
                     <div class="card card-signin my-5">
+                        <img src="assets/subject.jpg" class="card-img-top" alt="Subject Image">
                         <div class="card-body">
                             <a class="btn btn-primary btn-block text-uppercase" href="subject-details.php">Subjects Manager</a>
                             <a class="btn btn-secondary btn-block text-uppercase" href="subject-registration.php">Add Subject</a>

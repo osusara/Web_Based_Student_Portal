@@ -1,3 +1,5 @@
 body{
 	background-image: linear-gradient(to top, #9795f0 0%, #fbc8d4 100%);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
 }

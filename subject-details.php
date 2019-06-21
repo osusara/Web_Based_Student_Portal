@@ -5,30 +5,27 @@
 <?php
 
     // Check if a user logged in
-    // if(!isset($_SESSION['teacher_id'])){
-    //     header('Location: index.php');
-    // }
+    if(!isset($_SESSION['admin_id'])){
+        header('Location: index.php');
+    }
 
-    // Student list
-    $student_list = '';
+    // subject list
+    $subject_list = '';
 
     // Getting the list of users
-    $query = "SELECT * FROM student WHERE is_deleted=0 ORDER BY name";
-    $students = mysqli_query($connection, $query);
+    $query = "SELECT * FROM subject WHERE is_deleted=0 ORDER BY subject_id";
+    $subjects = mysqli_query($connection, $query);
 
     // Calling the function to verify the query
-    verify_query($students);
+    verify_query($subjects);
 
-    while($student = mysqli_fetch_assoc($students)){
-        $student_list .= "<tr>";
-        $student_list .= "<th scope=\"row\">{$student['student_id']}</th>";
-        $student_list .= "<td>{$student['name']}</td>";
-        $student_list .= "<td>{$student['address']}</td>";
-        $student_list .= "<td>{$student['phone']}</td>";
-        $student_list .= "<td>{$student['email']}</td>";
-        $student_list .= "<td>{$student['last_login']}</td>";
-        $student_list .= "<td><a href=\"modify-user.php?user_id={$student['student_id']}\" class=\"btn btn-warning\">Edit</a></td>";
-        $student_list .= "</tr>";
+    while($subject = mysqli_fetch_assoc($subjects)){
+        $subject_list .= "<tr>";
+        $subject_list .= "<th scope=\"row\">{$subject['subject_id']}</th>";
+        $subject_list .= "<td>{$subject['name']}</td>";
+        $subject_list .= "<td>{$subject['teacher_id']}</td>";
+        $subject_list .= "<td><a href=\"modify-user.php?user_id={$subject['subject_id']}\" class=\"btn btn-warning\">Edit</a></td>";
+        $subject_list .= "</tr>";
     }
 
 ?>
@@ -75,21 +72,18 @@
         <div class="container-fluid padding py-4">
             <div class="row">
                 <div class="col-md-10 col-sm-12 mx-auto">
-                    <h5>Students Details</h5>
+                    <h5>Subjects Details</h5>
                     <table class="table">
                         <thead class="thead-dark">
                             <tr>
-                                <th scope="col">Student ID</th>
-                                <th scope="col">Full Name</th>
-                                <th scope="col">Address</th>
-                                <th scope="col">Phone</th> 
-                                <th scope="col">Email</th> 
-                                <th scope="col">Last Login</th> 
+                                <th scope="col">Subject ID</th>
+                                <th scope="col">Subject Name</th>
+                                <th scope="col">Teacher ID</th>
                                 <th scope="col">Edit</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php echo $student_list ?>
+                            <?php echo $subject_list ?>
                         </tbody>
                     </table>
                 </div>
@@ -102,7 +96,7 @@
         <div class="container-fluid padding bg-dark text-light">
             <div class="row text-center">
                 <div class="col-12 pt-3">
-                    <p>&copy; 2019 Student Portal</p>
+                    <p>&copy; 2019 subject Portal</p>
                 </div>
             </div>
         </div>

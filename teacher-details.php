@@ -5,15 +5,15 @@
 <?php
 
     // Check if a user logged in
-    // if(!isset($_SESSION['teacher_id'])){
-    //     header('Location: index.php');
-    // }
+    if(!isset($_SESSION['admin_id'])){
+        header('Location: index.php');
+    }
 
     // teacher list
     $teacher_list = '';
 
     // Getting the list of users
-    $query = "SELECT * FROM teacher WHERE is_deleted=0 ORDER BY name";
+    $query = "SELECT * FROM teacher WHERE is_deleted=0 ORDER BY teacher_id";
     $teachers = mysqli_query($connection, $query);
 
     // Calling the function to verify the query
@@ -47,6 +47,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+
 	<title>Admin Dashboard</title>
 </head>
 <body>
@@ -54,7 +56,7 @@
     <header>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.php">teacher PORTAL</a>
+                <a class="navbar-brand" href="index.php">STUDENT PORTAL</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-responsive" aria-controls="navbar-responsive"aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -73,7 +75,7 @@
         <div class="container-fluid padding py-4">
             <div class="row">
                 <div class="col-md-10 col-sm-12 mx-auto">
-                    <h5>teachers Details</h5>
+                    <h5>Teachers Details</h5>
                     <table class="table">
                         <thead class="thead-dark">
                             <tr>

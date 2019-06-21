@@ -41,7 +41,7 @@
 				$_SESSION['admin_name'] = $teacher['name'];
 
 				// update last login
-				$query = "UPDATE admin SET last_login = NOW() WHERE admin_id = {$_SESSION['teacher_id']} LIMIT 1";
+				$query = "UPDATE admin SET last_login = NOW() WHERE admin_id = {$_SESSION['admin_id']} LIMIT 1";
 				$result = mysqli_query($connection, $query);
 
 				verify_query($result);
@@ -70,6 +70,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
 
     <title>Teacher Login</title>
 </head>
