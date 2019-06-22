@@ -1,6 +1,6 @@
 <?php session_start() ?>
-<?php require_once('includes/connection.php') ?>
-<?php require_once('includes/functions.php') ?>
+<?php require_once('../includes/connection.php') ?>
+<?php require_once('../includes/functions.php') ?>
 <?php
     
     // check if user is logged in
@@ -40,7 +40,7 @@
                 <div class="collapse navbar-collapse" id="navbar-responsive">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item"><a class="nav-link" href="admin-registration.php">Admin Registration</a></li>
-                        <li class="nav-item"><a class="btn btn-secondary btn-block" href="admin-logout.php">Log Out</a></li>
+                        <li class="nav-item"><a class="btn btn-secondary btn-block" href="logout.php">Log Out</a></li>
                     </ul>
                 </div>
             </div>
@@ -54,7 +54,7 @@
 
                 <div class="col-sm-12 col-md-3 mx-auto">
                     <div class="card card-signin my-5">
-                        <img src="assets/student.jpg" class="card-img-top" alt="Student Image">
+                        <img src="../assets/student.jpg" class="card-img-top" alt="Student Image">
                         <div class="card-body">
                             <a class="btn btn-primary btn-block text-uppercase" href="student-details.php">Students Manager</a>
                             <a class="btn btn-secondary btn-block text-uppercase" href="student-registration.php">Add Student</a>
@@ -64,7 +64,7 @@
 
                 <div class="col-sm-12 col-md-3 mx-auto">
                     <div class="card card-signin my-5">
-                        <img src="assets/teacher.jpg" class="card-img-top" alt="Teacher Image">
+                        <img src="../assets/teacher.jpg" class="card-img-top" alt="Teacher Image">
                         <div class="card-body">
                             <a class="btn btn-primary btn-block text-uppercase" href="teacher-details.php">Teachers Manager</a>
                             <a class="btn btn-secondary btn-block text-uppercase" href="teacher-registration.php">Add Teacher</a>
@@ -74,7 +74,7 @@
 
                 <div class="col-sm-12 col-md-3 mx-auto">
                     <div class="card card-signin my-5">
-                        <img src="assets/subject.jpg" class="card-img-top" alt="Subject Image">
+                        <img src="../assets/subject.jpg" class="card-img-top" alt="Subject Image">
                         <div class="card-body">
                             <a class="btn btn-primary btn-block text-uppercase" href="subject-details.php">Subjects Manager</a>
                             <a class="btn btn-secondary btn-block text-uppercase" href="subject-registration.php">Add Subject</a>

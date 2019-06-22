@@ -1,6 +1,6 @@
 <?php session_start() ?>
-<?php require_once('includes/connection.php') ?>
-<?php require_once('includes/functions.php') ?>
+<?php require_once('../includes/connection.php') ?>
+<?php require_once('../includes/functions.php') ?>
 <?php 
 
 	// check for submission
@@ -72,12 +72,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="../css/styles.css"
+    <link rel="stylesheet" type="text/css" href="../css/styles.css">
 
     <title>Student Login</title>
 </head>
 <body>
-
 	<header>
 		<nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
 			<div class="container-fluid">

@@ -1,12 +1,12 @@
 <?php session_start() ?>
-<?php require_once('includes/connection.php') ?>
-<?php require_once('includes/functions.php') ?>
+<?php require_once('../includes/connection.php') ?>
+<?php require_once('../includes/functions.php') ?>
 <?php
 
 	// check if user is logged in
-	// if(!isset($_SESSION['admin_id'])){
-	// 	header('Location: index.php');
-	// }
+	if(!isset($_SESSION['admin_id'])){
+		header('Location: admin-login.php');
+	}
 
 	$errors = array();
 
@@ -107,7 +107,7 @@
             	<div class="collapse navbar-collapse" id="navbar-responsive">
                 	<ul class="navbar-nav ml-auto">
                 		<li class="nav-item"><a class="nav-link" href="admin-dashboard.php">Back</a></li>
-                    	<li class="nav-item"><a class="btn btn-secondary btn-block" href="admin-logout.php">Log Out</a></li>
+                    	<li class="nav-item"><a class="btn btn-secondary btn-block" href="logout.php">Log Out</a></li>
                 	</ul>
             	</div>
         	</div>
@@ -124,19 +124,19 @@
 							<div class="form-row">
 								<div class="form-group col-md-12">
 									<label for="name">Full Name</label>
-									<input type="text" name="full_name" class="form-control" placeholder="Enter full name">
+									<input type="text" name="full_name" class="form-control" <?php echo 'value="'.$name.'"'; ?> placeholder="Enter full name">
 								</div>
 								<div class="form-group col-md-12">
 									<label for="name">Address</label>
-									<input type="text" name="address" class="form-control" placeholder="Enter permenant address">
+									<input type="text" name="address" class="form-control" <?php echo 'value="'.$address.'"'; ?> placeholder="Enter permenant address">
 								</div>
 								<div class="form-group col-sm-12 col-md-6">
 									<label for="name">Email</label>
-									<input type="email" name="email" class="form-control" placeholder="Enter email address">
+									<input type="email" name="email" class="form-control" <?php echo 'value="'.$email.'"'; ?> placeholder="Enter email address">
 								</div>
 								<div class="form-group col-sm-12 col-md-6">
 									<label for="phone">Phone</label>
-									<input type="text" name="phone" class="form-control" placeholder="Enter phone number">
+									<input type="text" name="phone" class="form-control" <?php echo 'value="'.$phone.'"'; ?> placeholder="Enter phone number">
 								</div>
 								<div class="form-group col-sm-12 col-md-6">
 									<label for="phone">Password</label>

@@ -1,13 +1,13 @@
 <?php session_start() ?>
-<?php require_once('includes/connection.php') ?>
-<?php require_once('includes/functions.php') ?>
+<?php require_once('../includes/connection.php') ?>
+<?php require_once('../includes/functions.php') ?>
 
 <?php
 
     // Check if a user logged in
-    // if(!isset($_SESSION['teacher_id'])){
-    //     header('Location: index.php');
-    // }
+    if(!isset($_SESSION['admin_id'])){
+        header('Location: admin-login.php');
+    }
 
     // Student list
     $student_list = '';
@@ -27,7 +27,7 @@
         $student_list .= "<td>{$student['phone']}</td>";
         $student_list .= "<td>{$student['email']}</td>";
         $student_list .= "<td>{$student['last_login']}</td>";
-        $student_list .= "<td><a href=\"modify-user.php?user_id={$student['student_id']}\" class=\"btn btn-warning\">Edit</a></td>";
+        $student_list .= "<td><a href=\"student-edit.php?student_id={$student['student_id']}\" class=\"btn btn-warning\">Edit</a></td>";
         $student_list .= "</tr>";
     }
 
@@ -64,7 +64,7 @@
                 <div class="collapse navbar-collapse" id="navbar-responsive">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item"><a class="nav-link" href="admin-dashboard.php">Back</a></li>
-                        <li class="nav-item"><a class="btn btn-secondary btn-block" href="admin-logout.php">Log Out</a></li>
+                        <li class="nav-item"><a class="btn btn-secondary btn-block" href="logout.php">Log Out</a></li>
                     </ul>
                 </div>
             </div>

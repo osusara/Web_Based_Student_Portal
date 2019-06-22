@@ -1,6 +1,6 @@
 <?php session_start() ?>
-<?php require_once('includes/connection.php') ?>
-<?php require_once('includes/functions.php') ?>
+<?php require_once('../includes/connection.php') ?>
+<?php require_once('../includes/functions.php') ?>
 <?php 
 
 	// check for submission
@@ -73,7 +73,7 @@
 
     <link rel="stylesheet" type="text/css" href="../css/styles.css">
 
-    <title>Teacher Login</title>
+    <title>Admin Login</title>
 </head>
 <body>
 

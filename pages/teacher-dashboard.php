@@ -1,6 +1,6 @@
 <?php session_start() ?>
-<?php require_once('includes/connection.php') ?>
-<?php require_once('includes/functions.php') ?>
+<?php require_once('../includes/connection.php') ?>
+<?php require_once('../includes/functions.php') ?>
 
 <?php
 
@@ -60,7 +60,7 @@
 
             	<div class="collapse navbar-collapse" id="navbar-responsive">
                 	<ul class="navbar-nav ml-auto">
-                    	<li class="nav-item"><a class="nav-link" href="student-logout.php">Log Out</a></li>
+                    	<li class="nav-item"><a class="nav-link" href="logout.php">Log Out</a></li>
                 	</ul>
             	</div>
         	</div>

@@ -1,3 +1,15 @@
+<?php
+
+    $messege = '';
+
+    if(isset($_GET['logout'])){
+        if($_GET['logout'] == 'yes'){
+            $messege = 'Logout successfully';
+        }
+    }
+    
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +31,13 @@
 <body>
     <header>
         <div class="container-fluid text-center bg-dark py-1">
-            <h1 class="text-light">STUDENT PORTAL</h1>
+            <h1 class="text-light display-2">STUDENT PORTAL</h1>
+            <?php
+                // Display messege
+                if(isset($messege)){
+                    echo '<h2 class="badge badge-pill badge-success">'.$messege.'</h2>';
+                }
+            ?>
         </div>
     </header>
 

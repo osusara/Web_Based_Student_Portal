@@ -1,80 +1,114 @@
 <?php session_start() ?>
 <?php require_once('../includes/connection.php') ?>
 <?php require_once('../includes/functions.php') ?>
+
 <?php
 
-	// check if user is logged in
+	// Check if a user logged in
 	if(!isset($_SESSION['admin_id'])){
 		header('Location: admin-login.php');
 	}
 
 	$errors = array();
 
+	$teacher_id = '';
 	$name = '';
 	$address = '';
 	$phone = '';
 	$email = '';
-	$password = '';
-	$password_confirm = '';
 
-	// check if the form is submitted
+	// VIEW TEACHER
+	// Check if the student_id is set
+	if(isset($_GET['teacher_id'])){
+
+		// Get teacher information
+		$teacher_id = mysqli_real_escape_string($connection, $_GET['teacher_id']);
+		$query = "SELECT * FROM teacher WHERE teacher_id = {$teacher_id} LIMIT 1";
+
+		$result_set = mysqli_query($connection, $query);
+
+		if($result_set){
+			if(mysqli_num_rows($result_set) == 1){
+
+				// Teacher found
+				$result = mysqli_fetch_assoc($result_set);
+				$name = $result['name'];
+				$address = $result['address'];
+				$phone = $result['phone'];
+				$email = $result['email'];
+			}else{
+
+				// Teacher not found
+				header('Location: teacher-details.php?err=not_found');
+			}
+		}else{
+
+			// Query failed
+			header('Location: teacher-details.php?err=query_failed');
+		}
+	}
+
+	// EDIT TEACHER
+	// Check if the form is submited
 	if(isset($_POST['submit'])){
+
+		$teacher_id = $_POST['teacher_id'];
 		$name = $_POST['full_name'];
 		$address = $_POST['address'];
 		$phone = $_POST['phone'];
 		$email = $_POST['email'];
-		$password = $_POST['password'];
-		$password_confirm = $_POST['password_confirm'];
 
-		// checking required fields
-		$req_fields = array('full_name', 'address', 'email', 'phone', 'password', 'password_confirm');
+		// Checking required fields
+		$req_fields = array('teacher_id', 'full_name', 'address', 'phone', 'email');
 		$errors = array_merge($errors, check_req_fields($req_fields));
 
-		// check validity of email
-		if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-    	    $errors[] = 'Email is not valid';
-    	}
+		// Checking max length
+		$max_len_fields = array('full_name' => 45, 'address' => 45, 'phone' => 45, 'email' => 45);
+		$errors = array_merge($errors, check_max_len($max_len_fields));
 
-    	// Checking if email already exist
-    	$email = mysqli_real_escape_string($connection, $_POST['email']); // Sanitizing email
-    	$query = "SELECT * FROM student WHERE email = '{$email}' LIMIT 1";
+		// Checking validation of email
+		if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
+			$errors[] = 'Email is not valid';
+		}
 
-    	$result_set = mysqli_query($connection, $query);
+		// Checking if email already exist
+		$email = mysqli_real_escape_string($connection, $_POST['email']);
+		$query = "SELECT * FROM teacher WHERE email = {$email} AND teacher_id != {$teacher_id} LIMIT 1";
 
-    	if($result_set){
-    	    if(mysqli_num_rows($result_set) == 1){
-    	        $errors[] = 'Email is already exist';
-    	    }
-    	}
+		$result_set = mysqli_query($connection, $query);
 
-    	// Cheking the password confirmation
-    	if($password != $password_confirm){
-    		$errors[] = "Password is not match with the confirmation";
-    	}
+		if($result_set){
+			if(mysqli_num_rows($result_set) == 1){
+				$errors[] = "Email is already exist";
+			}
+		}
 
-    	if(empty($errors)){
-            // If no error record adds to to the table
-            $name = mysqli_real_escape_string($connection, $_POST['full_name']); // Sanitizing full_name
-            $address = mysqli_real_escape_string($connection, $_POST['address']); // Sanitizing address
-            $phone = mysqli_real_escape_string($connection, $_POST['phone']); // Sanitizing phone
-            $email = mysqli_real_escape_string($connection, $_POST['email']); // Sanitizing email
-            $password = mysqli_real_escape_string($connection, $_POST['password']); // Sanitizing password
-            $hashed_password = sha1($password);
+		// If no error
+		if(empty($errors)){
 
-            $query = "INSERT INTO student
-                     (email, password, name, phone, address, last_login, is_deleted) VALUES
-                     ('{$email}', '{$hashed_password}', '{$name}', '{$phone}', '{$address}', NOW(), 0)";
+			// record add to the table
+			$name = mysqli_real_escape_string($connection, $_POST['full_name']);
+			$address = mysqli_real_escape_string($connection, $_POST['address']);
+			$phone = mysqli_real_escape_string($connection, $_POST['phone']);
 
-            $result = mysqli_query($connection, $query);
+			$query = "UPDATE teacher SET
+						name = '{$name}',
+						address = '{$address}',
+						phone = '{$phone}',
+						email = '{$email}'
+						WHERE teacher_id = {$teacher_id} LIMIT 1";
 
-            if($result){
-                header('Location: student-registration.php?student_add=true');
-            }else{
-                $errors[] = 'Failed to add the new record';
-            }
-        }
+			$result = mysqli_query($connection, $query);
+
+			if($result){
+				header('Location: teacher-details.php?teacher_edit=true');
+			}else{
+				$errors[] = 'Failed to edit the record';
+			}
+		}
+
 	}
-	
+
 ?>
 
 <!DOCTYPE html>
@@ -93,7 +127,7 @@
 
     <link rel="stylesheet" type="text/css" href="../css/styles.css">
 
-	<title>Student Registration</title>
+	<title>Edit Teacher</title>
 </head>
 <body>
 	<header>
@@ -106,7 +140,7 @@
 
             	<div class="collapse navbar-collapse" id="navbar-responsive">
                 	<ul class="navbar-nav ml-auto">
-                		<li class="nav-item"><a class="nav-link" href="admin-dashboard.php">Back</a></li>
+                		<li class="nav-item"><a class="nav-link" href="teacher-details.php">Back</a></li>
                     	<li class="nav-item"><a class="btn btn-secondary btn-block" href="logout.php">Log Out</a></li>
                 	</ul>
             	</div>
@@ -118,34 +152,30 @@
 		<div class="row">
 			<div class="col-sm-12 col-md-6 mx-auto">
 				<div class="card card-signin my-5">
-					<img src="../assets/student.jpg" class="card-img-top" alt="Student Image">
+					<img src="../assets/teacher.jpg" class="card-img-top" alt="Student Image">
 					<div class="card-body">
-						<h3 class="card-title text-center">Student Registration</h3>
-						<form action="student-registration.php" method="post">
+						<h3 class="card-title text-center">Update Teacher Details</h3>
+						<form action="teacher-edit.php" method="post">
 							<div class="form-row">
+								<input type="hidden" name="teacher_id" value="<?php echo $teacher_id; ?>">
 								<div class="form-group col-md-12">
 									<label for="name">Full Name</label>
 									<input type="text" name="full_name" class="form-control" <?php echo 'value="'.$name.'"'; ?> placeholder="Enter full name">
 								</div>
 								<div class="form-group col-md-12">
-									<label for="name">Address</label>
+									<label for="address">Address</label>
 									<input type="text" name="address" class="form-control" <?php echo 'value="'.$address.'"'; ?> placeholder="Enter permenant address">
 								</div>
 								<div class="form-group col-sm-12 col-md-6">
-									<label for="name">Email</label>
+									<label for="email">Email</label>
 									<input type="email" name="email" class="form-control" <?php echo 'value="'.$email.'"'; ?> placeholder="Enter email address">
 								</div>
 								<div class="form-group col-sm-12 col-md-6">
 									<label for="phone">Phone</label>
 									<input type="text" name="phone" class="form-control" <?php echo 'value="'.$phone.'"'; ?> placeholder="Enter phone number">
 								</div>
-								<div class="form-group col-sm-12 col-md-6">
-									<label for="phone">Password</label>
-									<input type="password" name="password" class="form-control" placeholder="Enter new password">
-								</div>
-								<div class="form-group col-sm-12 col-md-6">
-									<label for="phone">Confirm</label>
-									<input type="password" name="password_confirm" class="form-control" placeholder="Confirm the password">
+								<div class="form-group col-sm-12 col-md-12">
+									<a href="teacher-password.php?teacher_id=<?php echo $teacher_id; ?>" class="btn btn-secondary btn-block">Change Password</a>
 								</div>
 
 								<div class="form-group">
@@ -154,12 +184,12 @@
  						       			if(isset($errors) && !empty($errors)){
  						       				echo '<div class="alert alert-danger" role="alert">';
  				       						echo '<p class="error">'.$errors[0].'</p>';
- 				       						echo '</div';
+ 				       						echo '</div>';
  			    						}
    					     			?>
         						</div>
 							</div>
-							<button type="submit" class="btn btn-primary text-uppercase btn-block" name="submit">Sign Up</button>
+							<button type="submit" class="btn btn-primary text-uppercase btn-block" name="submit">Save Updates</button>
 						</form>
 					</div>
 				</div>
