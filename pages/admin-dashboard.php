@@ -50,6 +50,15 @@
 
     <main>
 
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-6 mx-auto">
+                    <h1 class="display-4 pt-4">Admin Dashboard</h1>
+                    <hr>
+                </div>
+            </div>
+        </div>
+
         <div class="container-fluid padding text-center">
             <div class="row">
 

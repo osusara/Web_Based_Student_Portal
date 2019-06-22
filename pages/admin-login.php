@@ -98,6 +98,7 @@
 		<div class="row">
 			<div class=" col-sm-12 col-md-4 mx-auto">
 				<div class="card card-signin my-5">
+					<img src="../assets/admin.jpg" class="card-img-top" alt="Student Image">
 					<div class="card-body">
 						<h3 class="card-title text-center">Admin Login</h3>
 						<form action="admin-login.php" method="post">
