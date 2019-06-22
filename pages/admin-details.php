@@ -1,12 +1,35 @@
 <?php session_start() ?>
 <?php require_once('../includes/connection.php') ?>
 <?php require_once('../includes/functions.php') ?>
+
 <?php
-    
-    // check if user is logged in
+
+    // Check if a user logged in
     if(!isset($_SESSION['admin_id'])){
         header('Location: admin-login.php');
     }
+
+    // admin list
+    $admin_list = '';
+
+    // Getting the list of users
+    $query = "SELECT * FROM admin WHERE is_deleted=0 ORDER BY admin_id";
+    $admins = mysqli_query($connection, $query);
+
+    // Calling the function to verify the query
+    verify_query($admins);
+
+    while($admin = mysqli_fetch_assoc($admins)){
+        $admin_list .= "<tr>";
+        $admin_list .= "<th scope=\"row\">{$admin['admin_id']}</th>";
+        $admin_list .= "<td>{$admin['name']}</td>";
+        $admin_list .= "<td>{$admin['phone']}</td>";
+        $admin_list .= "<td>{$admin['email']}</td>";
+        $admin_list .= "<td>{$admin['last_login']}</td>";
+        $admin_list .= "<td><a href=\"admin-edit.php?admin_id={$admin['admin_id']}\" class=\"btn btn-warning\">Edit</a></td>";
+        $admin_list .= "</tr>";
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -39,8 +62,7 @@
 
                 <div class="collapse navbar-collapse" id="navbar-responsive">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item"><a class="nav-link" href="admin-registration.php">Admin Registration</a></li>
-                        <li class="nav-item"><a class="nav-link" href="admin-details.php">Admin Manager</a></li>
+                        <li class="nav-item"><a class="nav-link" href="admin-dashboard.php">Back</a></li>
                         <li class="nav-item"><a class="btn btn-secondary btn-block" href="logout.php">Log Out</a></li>
                     </ul>
                 </div>
@@ -49,40 +71,26 @@
     </header>
 
     <main>
-
-        <div class="container-fluid padding text-center">
+        <div class="container-fluid padding py-4">
             <div class="row">
-
-                <div class="col-sm-12 col-md-3 mx-auto">
-                    <div class="card card-signin my-5">
-                        <img src="../assets/student.jpg" class="card-img-top" alt="Student Image">
-                        <div class="card-body">
-                            <a class="btn btn-primary btn-block text-uppercase" href="student-details.php">Students Manager</a>
-                            <a class="btn btn-secondary btn-block text-uppercase" href="student-registration.php">Add Student</a>
-                        </div>
-                    </div>
+                <div class="col-md-10 col-sm-12 mx-auto">
+                    <h5>Admins Details</h5>
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">admin ID</th>
+                                <th scope="col">Full Name</th>
+                                <th scope="col">Phone</th> 
+                                <th scope="col">Email</th> 
+                                <th scope="col">Last Login</th> 
+                                <th scope="col">Edit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php echo $admin_list ?>
+                        </tbody>
+                    </table>
                 </div>
-
-                <div class="col-sm-12 col-md-3 mx-auto">
-                    <div class="card card-signin my-5">
-                        <img src="../assets/teacher.jpg" class="card-img-top" alt="Teacher Image">
-                        <div class="card-body">
-                            <a class="btn btn-primary btn-block text-uppercase" href="teacher-details.php">Teachers Manager</a>
-                            <a class="btn btn-secondary btn-block text-uppercase" href="teacher-registration.php">Add Teacher</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-12 col-md-3 mx-auto">
-                    <div class="card card-signin my-5">
-                        <img src="../assets/subject.jpg" class="card-img-top" alt="Subject Image">
-                        <div class="card-body">
-                            <a class="btn btn-primary btn-block text-uppercase" href="subject-details.php">Subjects Manager</a>
-                            <a class="btn btn-secondary btn-block text-uppercase" href="subject-registration.php">Add Subject</a>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
 
@@ -92,10 +100,12 @@
         <div class="container-fluid padding bg-dark text-light">
             <div class="row text-center">
                 <div class="col-12 pt-3">
-                    <p>&copy; 2019 Student Portal</p>
+                    <p>&copy; 2019 admin Portal</p>
                 </div>
             </div>
         </div>
     </footer>
 </body>
 </html>
+
+<?php mysqli_close($connection) ?>
