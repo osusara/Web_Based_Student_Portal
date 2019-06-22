@@ -31,7 +31,7 @@
 					<img src="assets/student.jpg" class="card-img-top" alt="Student Login Image">
 					<div class="card-body">
 						<p class="card-title text-center">Click here if you are a student</p>
-						<a class="btn btn-primary btn-block text-uppercase" href="student-login.php">Login as a Student</a>
+						<a class="btn btn-primary btn-block text-uppercase" href="pages/student-login.php">Login as a Student</a>
 					</div>
 				</div>
 			</div>
@@ -41,7 +41,7 @@
 					<img src="assets/teacher.jpg" class="card-img-top" alt="Teacher Login Image">
 					<div class="card-body">
 						<p class="card-title text-center">Click here if you are a teacher</p>
-						<a class="btn btn-primary btn-block text-uppercase" href="teacher-login.php">Login as a Teacher</a>
+						<a class="btn btn-primary btn-block text-uppercase" href="pages/teacher-login.php">Login as a Teacher</a>
 					</div>
 				</div>
 			</div>
@@ -55,13 +55,13 @@
                 <div class="col-md-4 py-3">
                 	<h5>Admin Controls</h5>
                     <p>Admin privileges are special kind of access to the system. Admin can add, view, update or delete Students, Teachers and Subjects.</p>
-                    <a class="btn btn-secondary" href="admin-login.php">Login as an Admin</a>
+                    <a class="btn btn-secondary" href="pages/admin-login.php">Login as an Admin</a>
                 </div>
 
                 <div class="col-md-4 py-3">
                     <h5>Setup The System</h5>
                     <p>When the first use, the system must setup. This will create the database and create the environment for the system.</p>
-                    <a class="btn btn-secondary" href="admin-login.php">System Setup</a>
+                    <a class="btn btn-secondary" href="pages/admin-login.php">System Setup</a>
                 </div>
                 
                 <div class="col-md-4 py-3">

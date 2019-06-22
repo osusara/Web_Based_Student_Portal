@@ -5,27 +5,30 @@
 <?php
 
     // Check if a user logged in
-    if(!isset($_SESSION['admin_id'])){
-        header('Location: index.php');
-    }
+    // if(!isset($_SESSION['teacher_id'])){
+    //     header('Location: index.php');
+    // }
 
-    // subject list
-    $subject_list = '';
+    // Student list
+    $student_list = '';
 
     // Getting the list of users
-    $query = "SELECT * FROM subject WHERE is_deleted=0 ORDER BY subject_id";
-    $subjects = mysqli_query($connection, $query);
+    $query = "SELECT * FROM student WHERE is_deleted=0 ORDER BY name";
+    $students = mysqli_query($connection, $query);
 
     // Calling the function to verify the query
-    verify_query($subjects);
+    verify_query($students);
 
-    while($subject = mysqli_fetch_assoc($subjects)){
-        $subject_list .= "<tr>";
-        $subject_list .= "<th scope=\"row\">{$subject['subject_id']}</th>";
-        $subject_list .= "<td>{$subject['name']}</td>";
-        $subject_list .= "<td>{$subject['teacher_id']}</td>";
-        $subject_list .= "<td><a href=\"modify-user.php?user_id={$subject['subject_id']}\" class=\"btn btn-warning\">Edit</a></td>";
-        $subject_list .= "</tr>";
+    while($student = mysqli_fetch_assoc($students)){
+        $student_list .= "<tr>";
+        $student_list .= "<th scope=\"row\">{$student['student_id']}</th>";
+        $student_list .= "<td>{$student['name']}</td>";
+        $student_list .= "<td>{$student['address']}</td>";
+        $student_list .= "<td>{$student['phone']}</td>";
+        $student_list .= "<td>{$student['email']}</td>";
+        $student_list .= "<td>{$student['last_login']}</td>";
+        $student_list .= "<td><a href=\"modify-user.php?user_id={$student['student_id']}\" class=\"btn btn-warning\">Edit</a></td>";
+        $student_list .= "</tr>";
     }
 
 ?>
@@ -44,7 +47,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link rel="stylesheet" type="text/css" href="../css/styles.css">
 
 	<title>Admin Dashboard</title>
 </head>
@@ -53,7 +56,7 @@
     <header>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.php">STUDENT PORTAL</a>
+                <a class="navbar-brand" href="../index.php">STUDENT PORTAL</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-responsive" aria-controls="navbar-responsive"aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -72,18 +75,21 @@
         <div class="container-fluid padding py-4">
             <div class="row">
                 <div class="col-md-10 col-sm-12 mx-auto">
-                    <h5>Subjects Details</h5>
+                    <h5>Students Details</h5>
                     <table class="table">
                         <thead class="thead-dark">
                             <tr>
-                                <th scope="col">Subject ID</th>
-                                <th scope="col">Subject Name</th>
-                                <th scope="col">Teacher ID</th>
+                                <th scope="col">Student ID</th>
+                                <th scope="col">Full Name</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Phone</th> 
+                                <th scope="col">Email</th> 
+                                <th scope="col">Last Login</th> 
                                 <th scope="col">Edit</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php echo $subject_list ?>
+                            <?php echo $student_list ?>
                         </tbody>
                     </table>
                 </div>
@@ -96,7 +102,7 @@
         <div class="container-fluid padding bg-dark text-light">
             <div class="row text-center">
                 <div class="col-12 pt-3">
-                    <p>&copy; 2019 subject Portal</p>
+                    <p>&copy; 2019 Student Portal</p>
                 </div>
             </div>
         </div>

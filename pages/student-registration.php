@@ -5,12 +5,13 @@
 
 	// check if user is logged in
 	if(!isset($_SESSION['admin_id'])){
-		header('Location: admin-login.php');
+		header('Location: index.php');
 	}
 
 	$errors = array();
 
 	$name = '';
+	$address = '';
 	$phone = '';
 	$email = '';
 	$password = '';
@@ -19,13 +20,14 @@
 	// check if the form is submitted
 	if(isset($_POST['submit'])){
 		$name = $_POST['full_name'];
+		$address = $_POST['address'];
 		$phone = $_POST['phone'];
 		$email = $_POST['email'];
 		$password = $_POST['password'];
 		$password_confirm = $_POST['password_confirm'];
 
 		// checking required fields
-		$req_fields = array('full_name', 'email', 'phone', 'password', 'password_confirm');
+		$req_fields = array('full_name', 'address', 'email', 'phone', 'password', 'password_confirm');
 		$errors = array_merge($errors, check_req_fields($req_fields));
 
 		// check validity of email
@@ -35,7 +37,7 @@
 
     	// Checking if email already exist
     	$email = mysqli_real_escape_string($connection, $_POST['email']); // Sanitizing email
-    	$query = "SELECT * FROM admin WHERE email = '{$email}' LIMIT 1";
+    	$query = "SELECT * FROM student WHERE email = '{$email}' LIMIT 1";
 
     	$result_set = mysqli_query($connection, $query);
 
@@ -53,19 +55,20 @@
     	if(empty($errors)){
             // If no error record adds to to the table
             $name = mysqli_real_escape_string($connection, $_POST['full_name']); // Sanitizing full_name
+            $address = mysqli_real_escape_string($connection, $_POST['address']); // Sanitizing address
             $phone = mysqli_real_escape_string($connection, $_POST['phone']); // Sanitizing phone
             $email = mysqli_real_escape_string($connection, $_POST['email']); // Sanitizing email
             $password = mysqli_real_escape_string($connection, $_POST['password']); // Sanitizing password
             $hashed_password = sha1($password);
 
-            $query = "INSERT INTO admin
-                     (email, password, phone, name, last_login, is_deleted) VALUES
-                     ('{$email}', '{$hashed_password}', '{$phone}', '{$name}', NOW(), 0)";
+            $query = "INSERT INTO student
+                     (email, password, name, phone, address, last_login, is_deleted) VALUES
+                     ('{$email}', '{$hashed_password}', '{$name}', '{$phone}', '{$address}', NOW(), 0)";
 
             $result = mysqli_query($connection, $query);
 
             if($result){
-                header('Location: admin-dashboard.php?admin_add=true');
+                header('Location: student-registration.php?student_add=true');
             }else{
                 $errors[] = 'Failed to add the new record';
             }
@@ -88,22 +91,22 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link rel="stylesheet" type="text/css" href="../css/styles.css">
 
-	<title>Admin Registration</title>
+	<title>Student Registration</title>
 </head>
 <body>
 	<header>
 		<nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
 			<div class="container-fluid">
-            	<a class="navbar-brand" href="index.php">STUDENT PORTAL</a>
+            	<a class="navbar-brand" href="../index.html">STUDENT PORTAL</a>
             	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-responsive" aria-controls="navbar-responsive"aria-expanded="false" aria-label="Toggle navigation">
                 	<span class="navbar-toggler-icon"></span>
             	</button>
 
             	<div class="collapse navbar-collapse" id="navbar-responsive">
                 	<ul class="navbar-nav ml-auto">
-                        <li class="nav-item"><a class="nav-link" href="admin-dashboard.php">Back</a></li>
+                		<li class="nav-item"><a class="nav-link" href="admin-dashboard.php">Back</a></li>
                     	<li class="nav-item"><a class="btn btn-secondary btn-block" href="admin-logout.php">Log Out</a></li>
                 	</ul>
             	</div>
@@ -116,12 +119,16 @@
 			<div class="col-sm-12 col-md-6 mx-auto">
 				<div class="card card-signin my-5">
 					<div class="card-body">
-						<h3 class="card-title text-center">Admin Registration</h3>
-						<form action="admin-registration.php" method="post">
+						<h3 class="card-title text-center">Student Registration</h3>
+						<form action="student-registration.php" method="post">
 							<div class="form-row">
 								<div class="form-group col-md-12">
 									<label for="name">Full Name</label>
 									<input type="text" name="full_name" class="form-control" placeholder="Enter full name">
+								</div>
+								<div class="form-group col-md-12">
+									<label for="name">Address</label>
+									<input type="text" name="address" class="form-control" placeholder="Enter permenant address">
 								</div>
 								<div class="form-group col-sm-12 col-md-6">
 									<label for="name">Email</label>
