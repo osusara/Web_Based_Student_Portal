@@ -121,6 +121,7 @@
    					     		?>
         					</div>
         					<button type="submit" class="btn btn-primary btn-block text-uppercase" name="student-submit">Login</button>
+        					<a class="btn btn-secondary btn-block text-uppercase" href="student-registration.php">Sign Up</a>
 						</form>
 					</div>
 				</div>
