@@ -24,7 +24,7 @@
         $subject_list .= "<th scope=\"row\">{$subject['subject_id']}</th>";
         $subject_list .= "<td>{$subject['name']}</td>";
         $subject_list .= "<td>{$subject['teacher_id']}</td>";
-        $subject_list .= "<td><a href=\"modify-user.php?user_id={$subject['subject_id']}\" class=\"btn btn-warning\">Edit</a></td>";
+        $subject_list .= "<td><a href=\"subject-edit.php?subject_id={$subject['subject_id']}\" class=\"btn btn-warning\">Edit</a></td>";
         $subject_list .= "</tr>";
     }
 

@@ -26,7 +26,7 @@
         $user_list .= "<td>{$user['phone']}</td>";
         $user_list .= "<td>{$user['email']}</td>";
         $user_list .= "<td>{$user['last_login']}</td>";
-        $user_list .= "<td><a href=\"modify-user.php?user_id={$user['student_id']}\" class=\"btn btn-warning\">Edit</a></td>";
+        $user_list .= "<td><a href=\"result-add.php?student_id={$user['student_id']}\" class=\"btn btn-primary\">Update Results</a></td>";
         $user_list .= "</tr>";
     }
 ?>
@@ -60,7 +60,7 @@
 
             	<div class="collapse navbar-collapse" id="navbar-responsive">
                 	<ul class="navbar-nav ml-auto">
-                    	<li class="nav-item"><a class="nav-link" href="logout.php">Log Out</a></li>
+                    	<li class="nav-item"><a class="btn btn-secondary btn-block" href="logout.php">Log Out</a></li>
                 	</ul>
             	</div>
         	</div>
@@ -68,7 +68,7 @@
 	</header>
 
 	<main>
-		<div class="container padding py-4">
+		<div class="container-fluid padding py-4">
 			<div class="row">
 				<div class="col-md-10 col-sm-12 mx-auto">
                     <h5>Students Details</h5>
@@ -81,7 +81,7 @@
                 				<th scope="col">Phone</th> 
                 				<th scope="col">Email</th> 
                 				<th scope="col">Last Login</th> 
-                				<th scope="col">Edit</th>
+                				<th scope="col">Results</th>
 							</tr>
 						</thead>
 						<tbody>

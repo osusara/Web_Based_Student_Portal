@@ -1,8 +1,89 @@
 <?php session_start() ?>
 <?php require_once('../includes/connection.php') ?>
 <?php require_once('../includes/functions.php') ?>
+
 <?php
 
+	// Check if a user logged in
+	if(!isset($_SESSION['admin_id'])){
+		header('Location: admin-login.php');
+	}
+
+	$errors = array();
+
+	$subject_id = '';
+	$name = '';
+	$teacher_id = '';
+
+	// VIEW SUBJECT
+	// Check if the subject_id is set
+	if(isset($_GET['subject_id'])){
+
+		// Get subject information
+		$subject_id = mysqli_real_escape_string($connection, $_GET['subject_id']);
+		$query = "SELECT * FROM subject WHERE subject_id = {$subject_id} LIMIT 1";
+
+		$result_set = mysqli_query($connection, $query);
+
+		if($result_set){
+			if(mysqli_num_rows($result_set) == 1){
+
+				// subject found
+				$result = mysqli_fetch_assoc($result_set);
+				$name = $result['name'];
+				$teacher_id = $result['teacher_id'];
+			}else{
+
+				// subject not found
+				header('Location: subject-details.php?err=not_found');
+			}
+		}else{
+
+			// Query failed
+			header('Location: subject-details.php?err=query_failed');
+		}
+	}
+
+	// EDIT SUBJECT
+	// Check if the form is submited
+	if(isset($_POST['submit'])){
+
+		$subject_id = $_POST['subject_id'];
+		$name = $_POST['name'];
+		$teacher_id = $_POST['teacher_id'];
+
+		// Checking required fields
+		$req_fields = array('subject_id', 'name', 'teacher_id');
+		$errors = array_merge($errors, check_req_fields($req_fields));
+
+		// Checking max length
+		$max_len_fields = array('name' => 45, 'teacher_id' => 11);
+		$errors = array_merge($errors, check_max_len($max_len_fields));
+
+		// If no error
+		if(empty($errors)){
+
+			// record add to the table
+			$name = mysqli_real_escape_string($connection, $_POST['name']);
+			$teacher_id = mysqli_real_escape_string($connection, $_POST['teacher_id']);
+
+			$query = "UPDATE subject SET
+						name = '{$name}',
+						teacher_id = '{$teacher_id}'
+						WHERE subject_id = {$subject_id} LIMIT 1";
+
+			$result = mysqli_query($connection, $query);
+
+			if($result){
+				header('Location: subject-details.php?subject_edit=true');
+			}else{
+				$errors[] = 'Failed to edit the record';
+			}
+		}
+
+	}
+
+	// TEACHERS TABLE
 	// check if user is logged in
 	if(!isset($_SESSION['admin_id'])){
 		header('Location: admin-login.php');
@@ -27,40 +108,6 @@
         $teacher_list .= "</tr>";
     }
 
-    // Subject registration process
-	$errors = array();
-
-	$name = '';
-	$teacher_id = '';
-
-	// check if the form is submitted
-	if(isset($_POST['submit'])){
-		$name = $_POST['subject_name'];
-		$teacher_id = $_POST['teacher_id'];
-
-		// checking required fields
-		$req_fields = array('subject_name', 'teacher_id',);
-		$errors = array_merge($errors, check_req_fields($req_fields));
-
-    	if(empty($errors)){
-            // If no error record adds to to the table
-            $name = mysqli_real_escape_string($connection, $_POST['subject_name']); // Sanitizing subject_name
-            $teacher_id = mysqli_real_escape_string($connection, $_POST['teacher_id']); // Sanitizing teacher_id
-
-            $query = "INSERT INTO subject
-                     (name, teacher_id, is_deleted) VALUES
-                     ('{$name}', '{$teacher_id}', 0)";
-
-            $result = mysqli_query($connection, $query);
-
-            if($result){
-                header('Location: subject-registration.php?subject_add=true');
-            }else{
-                $errors[] = 'Failed to add the new record';
-            }
-        }
-	}
-	
 ?>
 
 <!DOCTYPE html>
@@ -79,20 +126,20 @@
 
     <link rel="stylesheet" type="text/css" href="../css/styles.css">
 
-	<title>Add Subjects</title>
+	<title>Edit Subject</title>
 </head>
 <body>
 	<header>
 		<nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
 			<div class="container-fluid">
-            	<a class="navbar-brand" href="../index.php">STUDENT PORTAL</a>
+            	<a class="navbar-brand" href="../index.html">STUDENT PORTAL</a>
             	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-responsive" aria-controls="navbar-responsive"aria-expanded="false" aria-label="Toggle navigation">
                 	<span class="navbar-toggler-icon"></span>
             	</button>
 
             	<div class="collapse navbar-collapse" id="navbar-responsive">
                 	<ul class="navbar-nav ml-auto">
-                        <li class="nav-item"><a class="nav-link" href="admin-dashboard.php">Back</a></li>
+                		<li class="nav-item"><a class="nav-link" href="subject-details.php">Back</a></li>
                     	<li class="nav-item"><a class="btn btn-secondary btn-block" href="logout.php">Log Out</a></li>
                 	</ul>
             	</div>
@@ -104,18 +151,19 @@
 		<div class="row">
 			<div class="col-sm-12 col-md-6 mx-auto">
 				<div class="card card-signin my-5">
-                    <img src="../assets/subject.jpg" class="card-img-top" alt="Subject Image">
+					<img src="../assets/subject.jpg" class="card-img-top" alt="Subject Image">
 					<div class="card-body">
-						<h3 class="card-title text-center">Add Subject</h3>
-						<form action="subject-registration.php" method="post">
+						<h3 class="card-title text-center">Update Subject Details</h3>
+						<form action="subject-edit.php" method="post">
 							<div class="form-row">
+								<input type="hidden" name="subject_id" value="<?php echo $subject_id; ?>">
 								<div class="form-group col-md-9">
 									<label for="name">Subject Name</label>
-									<input type="text" name="subject_name" class="form-control" <?php echo 'value="'.$name.'"'; ?> placeholder="Enter subject name">
+									<input type="text" name="name" class="form-control" <?php echo 'value="'.$name.'"'; ?> disabled>
 								</div>
-								<div class="form-group col-sm-12 col-md-3">
-									<label for="teacher_id">Teacher ID</label>
-									<input type="text" name="teacher_id" class="form-control" <?php echo 'value="'.$teacher_id.'"'; ?> placeholder="Enter ID">
+								<div class="form-group col-md-3">
+									<label for="address">Techer ID</label>
+									<input type="text" name="teacher_id" class="form-control" <?php echo 'value="'.$teacher_id.'"'; ?>>
 								</div>
 
 								<div class="form-group">
@@ -124,12 +172,12 @@
  						       			if(isset($errors) && !empty($errors)){
  						       				echo '<div class="alert alert-danger" role="alert">';
  				       						echo '<p class="error">'.$errors[0].'</p>';
- 				       						echo '</div';
+ 				       						echo '</div>';
  			    						}
    					     			?>
         						</div>
 							</div>
-							<button type="submit" class="btn btn-primary text-uppercase btn-block" name="submit">Add Subject</button>
+							<button type="submit" class="btn btn-primary text-uppercase btn-block" name="submit">Save Updates</button>
 						</form>
 					</div>
 				</div>
