@@ -78,7 +78,7 @@
 </head>
 <body>
 	<header>
-		<nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+		<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
 			<div class="container-fluid">
             	<a class="navbar-brand" href="../index.php">STUDENT PORTAL</a>
             	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-responsive" aria-controls="navbar-responsive"aria-expanded="false" aria-label="Toggle navigation">
@@ -99,9 +99,8 @@
 
 			<div class=" col-sm-12 col-md-4 mx-auto">
 				<div class="card card-signin my-5">
-					<img src="../assets/student.jpg" class="card-img-top" alt="Student Image">
+					<img src="../assets/students.jpg" class="card-img-top" alt="Student Image">
 					<div class="card-body">
-						<h3 class="card-title text-center">Student Login</h3>
 						<form action="student-login.php" method="post">
 							<div class="form-group">
 					    		<input type="email" class="form-control" id="" aria-describedby="emailHelp" name="student-email" placeholder="Enter Email">
@@ -121,7 +120,6 @@
    					     		?>
         					</div>
         					<button type="submit" class="btn btn-primary btn-block text-uppercase" name="student-submit">Login</button>
-        					<a class="btn btn-secondary btn-block text-uppercase" href="student-registration.php">Sign Up</a>
 						</form>
 					</div>
 				</div>
@@ -130,7 +128,7 @@
 	</div>
 
 	<footer class="footer">
-        <div class="container-fluid padding bg-dark text-light">
+        <div class="container-fluid padding bg-light">
             <div class="row text-center">
                 <div class="col-12 pt-3">
                     <p>&copy; 2019 Student Portal</p>

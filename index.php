@@ -30,8 +30,8 @@
 </head>
 <body>
     <header>
-        <div class="container-fluid text-center bg-dark py-1">
-            <h1 class="text-light display-2">STUDENT PORTAL</h1>
+        <div class="container-fluid text-center bg-light py-1">
+            <h1 class=" display-2">STUDENT PORTAL</h1>
             <?php
                 // Display messege
                 if(isset($messege)){
@@ -68,7 +68,7 @@
 	</div>
 
 	<footer>
-        <div class="container-fluid padding bg-dark text-light">
+        <div class="container-fluid padding bg-light">
             <div class="row text-center">
                 <div class="col-md-4 py-3">
                 	<h5>Admin Controls</h5>
@@ -79,7 +79,7 @@
                 <div class="col-md-4 py-3">
                     <h5>Setup The System</h5>
                     <p>When the first use, the system must setup. This will create the database and create the environment for the system.</p>
-                    <a class="btn btn-secondary" href="pages/admin-login.php">System Setup</a>
+                    <a class="btn btn-secondary" href="pages/setup.php">System Setup</a>
                 </div>
                 
                 <div class="col-md-4 py-3">

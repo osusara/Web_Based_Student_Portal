@@ -6,7 +6,7 @@
 
 	// Check if a user logged in
 	if(!isset($_SESSION['teacher_id'])){
-		header('Location: admin-login.php');
+		header('Location: teacher-login.php');
 	}
 
 	$errors = array();
@@ -136,7 +136,7 @@
 </head>
 <body>
 	<header>
-		<nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+		<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
 			<div class="container-fluid">
             	<a class="navbar-brand" href="../index.html">STUDENT PORTAL</a>
             	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-responsive" aria-controls="navbar-responsive"aria-expanded="false" aria-label="Toggle navigation">
@@ -164,16 +164,16 @@
 							<div class="form-row">
 								<input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
 								<div class="form-group col-md-4">
-									<label for="name">Student ID</label>
+									<label for="student id">Student ID</label>
 									<input type="text" name="student_id" class="form-control" <?php echo 'value="'.$student_id.'"'; ?> disabled>
 								</div>
 								<div class="form-group col-md-4">
-									<label for="address">Subject ID</label>
+									<label for="subject ID">Subject ID</label>
 									<input type="text" name="subject_id" class="form-control" <?php echo 'value="'.$subject_id.'"'; ?>>
 								</div>
 								<div class="form-group col-sm-12 col-md-4">
-									<label for="email">Result</label>
-									<input type="email" name="marks" class="form-control" <?php echo 'value="'.$marks.'"'; ?>>
+									<label for="marks">Result</label>
+									<input type="text" name="marks" class="form-control" <?php echo 'value="'.$marks.'"'; ?>>
 								</div>
 
 								<div class="form-group">
@@ -215,7 +215,7 @@
 	</main>
 
 	<footer class="footer">
-        <div class="container-fluid padding bg-dark text-light">
+        <div class="container-fluid padding bg-light">
             <div class="row text-center">
                 <div class="col-12 pt-3">
                     <p>&copy; 2019 Student Portal</p>

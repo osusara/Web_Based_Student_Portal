@@ -78,7 +78,7 @@
 <body>
 
 	<header>
-		<nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+		<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
 			<div class="container-fluid">
             	<a class="navbar-brand" href="../index.php">STUDENT PORTAL</a>
             	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-responsive" aria-controls="navbar-responsive"aria-expanded="false" aria-label="Toggle navigation">
@@ -98,9 +98,8 @@
 		<div class="row">
 			<div class=" col-sm-12 col-md-4 mx-auto">
 				<div class="card card-signin my-5">
-					<img src="../assets/teacher.jpg" class="card-img-top" alt="Student Image">
+					<img src="../assets/teachers.jpg" class="card-img-top" alt="Student Image">
 					<div class="card-body">
-						<h3 class="card-title text-center">Teacher Login</h3>
 						<form action="teacher-login.php" method="post">
 							<div class="form-group">
 					    		<input type="email" class="form-control" id="" aria-describedby="emailHelp" name="teacher-email" placeholder="Enter Email">
@@ -128,7 +127,7 @@
 	</div>
 
 	<footer class="footer">
-        <div class="container-fluid padding bg-dark text-light">
+        <div class="container-fluid padding bg-light">
             <div class="row text-center">
                 <div class="col-12 pt-3">
                     <p>&copy; 2019 Student Portal</p>
