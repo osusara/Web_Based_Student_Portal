@@ -70,9 +70,9 @@
 	<main>
         <div class="container text-center">
             <div class="row">
-                <div class="col-6 mx-auto">
+                <div class="col-6 mx-auto pt-4">
                     <hr>
-                    <h1 class="display-4 pt-4">Teacher Dashboard</h1>
+                    <h1 class="display-4">Teacher Dashboard</h1>
                     <hr>
                 </div>
             </div>
