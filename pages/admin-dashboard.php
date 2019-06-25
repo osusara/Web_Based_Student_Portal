@@ -52,8 +52,9 @@
 
         <div class="container text-center">
             <div class="row">
-                <div class="col-6 mx-auto">
-                    <h1 class="display-4 pt-4">Admin Dashboard</h1>
+                <div class="col-6 mx-auto pt-4">
+                    <hr>
+                    <h1 class="display-4">Admin Dashboard</h1>
                     <hr>
                 </div>
             </div>

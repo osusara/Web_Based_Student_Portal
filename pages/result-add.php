@@ -91,27 +91,52 @@
 		$max_len_fields = array('student_id' => 11, 'subject_id' => 11, 'marks' => 11);
 		$errors = array_merge($errors, check_max_len($max_len_fields));
 
-		// If no error
-		if(empty($errors)){
+		// Check if the result is already exist
+		$query = "SELECT * FROM result WHERE student_id = {$student_id} AND subject_id = {$subject_id} LIMIT 1";
+		$result = mysqli_query($connection, $query);
 
-			// record add to the table
-			$student_id = mysqli_real_escape_string($connection, $_POST['student_id']);
-			$subject_id = mysqli_real_escape_string($connection, $_POST['subject_id']);
-			$marks = mysqli_real_escape_string($connection, $_POST['marks']);
+		if(mysqli_num_rows($result) == 1){
+			// If no error
+			if(empty($errors)){
 
-			$query = "UPDATE result SET
-						result = '{$marks}'
+				// record add to the table
+				$student_id = mysqli_real_escape_string($connection, $_POST['student_id']);
+				$subject_id = mysqli_real_escape_string($connection, $_POST['subject_id']);
+				$marks = mysqli_real_escape_string($connection, $_POST['marks']);
+
+				$query = "UPDATE result SET
+						result = {$marks}
 						WHERE student_id = {$student_id} AND subject_id = {$subject_id} LIMIT 1";
 
-			$result = mysqli_query($connection, $query);
+				$result_set = mysqli_query($connection, $query);
 
-			if($result){
-				header('Location: student-details.php?user_edit=true');
-			}else{
-				$errors[] = 'Failed to edit the record';
+				if($result_set){
+					header('Location: teacher-dashboard.php?results_added=true');
+				}else{
+					$errors[] = 'Failed to edit the record';
+				}
+			}
+		}else{
+			// If no error
+			if(empty($errors)){
+
+				// record add to the table
+				$student_id = mysqli_real_escape_string($connection, $_POST['student_id']);
+				$subject_id = mysqli_real_escape_string($connection, $_POST['subject_id']);
+				$marks = mysqli_real_escape_string($connection, $_POST['marks']);
+
+				$query = "INSERT INTO result (subject_id, student_id, result)
+						VALUES ({$subject_id}, {$student_id}, {$marks})";
+
+				$result_set = mysqli_query($connection, $query);
+
+				if($result_set){
+					header('Location: teacher-dashboard.php?results_added=true');
+				}else{
+					$errors[] = 'Failed to edit the record';
+				}
 			}
 		}
-
 	}
 
 ?>

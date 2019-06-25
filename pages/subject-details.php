@@ -69,10 +69,20 @@
     </header>
 
     <main>
+
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-6 mx-auto pt-4">
+                    <hr>
+                    <h1 class="display-4">Subjects Details</h1>
+                    <hr>
+                </div>
+            </div>
+        </div>
+
         <div class="container-fluid padding py-4">
             <div class="row">
                 <div class="col-md-10 col-sm-12 mx-auto">
-                    <h5>Subjects Details</h5>
                     <table class="table">
                         <thead class="thead-dark">
                             <tr>

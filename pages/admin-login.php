@@ -35,10 +35,10 @@
 			// when query is success
 			if(mysqli_num_rows($result) == 1){
 
-				// valid teacher found
-				$teacher = mysqli_fetch_assoc($result);
-				$_SESSION['admin_id'] = $teacher['admin_id'];
-				$_SESSION['admin_name'] = $teacher['name'];
+				// valid admin found
+				$admin = mysqli_fetch_assoc($result);
+				$_SESSION['admin_id'] = $admin['admin_id'];
+				$_SESSION['admin_name'] = $admin['name'];
 
 				// update last login
 				$query = "UPDATE admin SET last_login = NOW() WHERE admin_id = {$_SESSION['admin_id']} LIMIT 1";
@@ -46,7 +46,7 @@
 
 				verify_query($result);
 
-				// redirect to teacher's home
+				// redirect to admin's home
 				header('Location: admin-dashboard.php');
 			}else{
 

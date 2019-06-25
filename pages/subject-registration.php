@@ -104,7 +104,7 @@
 		<div class="row">
 			<div class="col-sm-12 col-md-6 mx-auto">
 				<div class="card card-signin my-5">
-                    <img src="../assets/subject.jpg" class="card-img-top" alt="Subject Image">
+                    <img src="../assets/subjects.jpg" class="card-img-top" alt="Subject Image">
 					<div class="card-body">
 						<h3 class="card-title text-center">Add Subject</h3>
 						<form action="subject-registration.php" method="post">
