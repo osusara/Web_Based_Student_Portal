@@ -9,10 +9,29 @@
         header('Location: index.php');
     }
 
-    $result_list = '';
+    // Getting Student details
+    $id = $_SESSION['student_id'];
+    $name = '';
+    $address = '';
+    $email = '';
+    $phone = '';
+
+    $query = "SELECT * FROM student WHERE student_id={$id} LIMIT 1";
+    $result_set = mysqli_query($connection, $query);
+
+    // Calling the function to verify the query
+    verify_query($result_set);
+
+    $student = mysqli_fetch_assoc($result_set);
+    $name = $student['name'];
+    $address = $student['address'];
+    $email = $student['email'];
+    $phone = $student['phone'];
 
     // Getting the list of results
-    $query = "SELECT * FROM result WHERE student_id={$_SESSION['student_id']} ORDER BY subject_id";
+    $result_list = '';
+
+    $query = "SELECT * FROM result WHERE student_id={$id} ORDER BY subject_id";
     $results = mysqli_query($connection, $query);
 
     // Calling the function to verify the query
@@ -53,7 +72,7 @@
 	<header>
 		<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
 			<div class="container-fluid">
-            	<a class="navbar-brand" href="../index.html">STUDENT PORTAL</a>
+            	<a class="navbar-brand" href="../index.php">STUDENT PORTAL</a>
             	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-responsive" aria-controls="navbar-responsive"aria-expanded="false" aria-label="Toggle navigation">
                 	<span class="navbar-toggler-icon"></span>
             	</button>
@@ -74,6 +93,51 @@
                     <hr>
                     <h1 class="display-4">Student Dashboard</h1>
                     <hr>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12 col-md-4 mx-auto">
+                <div class="card card-signin my-5">
+                    <div class="card-body">
+                        <div class="container padding">
+                            <h1 class="card-title text-center py-4">Hi! There,</h1>
+                            <table class="table">
+                                <tr>
+                                    <td>Student ID</td>
+                                    <th><?php echo ' '.$id.''; ?></th>
+                                </tr>
+                                <tr>
+                                    <td>Name</td>
+                                    <th><?php echo ' '.$name.''; ?></th>
+                                </tr>
+                                <tr>
+                                    <td>Address</td>
+                                    <th><?php echo ' '.$address.''; ?></th>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <th><?php echo ' '.$email.''; ?></th>
+                                </tr>
+                                <tr>
+                                    <td>Phone</td>
+                                    <th><?php echo ' '.$phone.''; ?></th>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="col-sm-12 col-md-10">
+                            <?php
+                                // Display errors
+                                if(isset($errors) && !empty($errors)){
+                                    echo '<div class="alert alert-danger" role="alert">';
+                                    echo '<p class="error">'.$errors[0].'</p>';
+                                    echo '</div>';
+                                }
+                            ?>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
