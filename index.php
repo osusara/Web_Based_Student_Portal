@@ -7,6 +7,12 @@
             $messege = 'Logout successfully';
         }
     }
+
+    if(isset($_GET['system_setup'])){
+        if($_GET['system_setup'] == 'true'){
+            $messege = 'System successfully installed';
+        }
+    }
     
 ?>
 
@@ -70,20 +76,10 @@
 	<footer>
         <div class="container-fluid padding bg-light">
             <div class="row text-center">
-                <div class="col-md-4 py-3">
+                <div class="col-12">
                 	<h5>Admin Controls</h5>
                     <p>Admin privileges are special kind of access to the system. Admin can add, view, update or delete Students, Teachers and Subjects.</p>
                     <a class="btn btn-secondary" href="pages/admin-login.php">Login as an Admin</a>
-                </div>
-
-                <div class="col-md-4 py-3">
-                    <h5>Setup The System</h5>
-                    <p>When the first use, the system must setup. This will create the database and create the environment for the system.</p>
-                    <a class="btn btn-secondary" href="pages/system-setup.php">System Setup</a>
-                </div>
-                
-                <div class="col-md-4 py-3">
-                    
                 </div>
                 <div class="col-12">
                     <hr class="light-100 bg-light">
