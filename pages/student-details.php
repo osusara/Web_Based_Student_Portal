@@ -13,7 +13,7 @@
     $student_list = '';
 
     // Getting the list of users
-    $query = "SELECT * FROM student WHERE is_deleted=0 ORDER BY name";
+    $query = "SELECT * FROM student WHERE is_deleted=0 ORDER BY student_id";
     $students = mysqli_query($connection, $query);
 
     // Calling the function to verify the query
