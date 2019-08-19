@@ -7,6 +7,12 @@
             $messege = 'Logout successfully';
         }
     }
+
+    if(isset($_GET['system_setup'])){
+        if($_GET['system_setup'] == 'true'){
+            $messege = 'System successfully installed';
+        }
+    }
     
 ?>
 
